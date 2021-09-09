@@ -4,7 +4,7 @@ class Logger {
     
     static let shared = Logger()
         
-        private init(){}
+        public init(){}
     
     func debugPrint(
         _ message: Any,
