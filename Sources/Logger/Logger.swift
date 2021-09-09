@@ -19,7 +19,7 @@ public class Logger {
         }
         else {
             let filename = (extra1 as NSString).lastPathComponent
-            print(message, "[\(filename) \(extra3) line]")
+            print("[⚠️]", message, "[\(filename) \(extra3) line]")
         }
         
         // if remoteLog is true record the log in server
