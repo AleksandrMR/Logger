@@ -2,6 +2,10 @@ import Foundation
 
 class Logger {
     
+    static let shared = Logger()
+        
+        private init(){}
+    
     func debugPrint(
         _ message: Any,
         extra1: String = #file,
