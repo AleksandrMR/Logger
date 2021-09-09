@@ -2,11 +2,11 @@ import Foundation
 
 public class Logger {
     
-    static let shared = Logger()
+    public static let shared = Logger()
         
         public init(){}
     
-    func debugPrint(
+    public func debugPrint(
         _ message: Any,
         extra1: String = #file,
         extra2: String = #function,
@@ -31,11 +31,11 @@ public class Logger {
     }
     
     /// pretty print
-    func prettyPrint(_ message: Any) {
+    public func prettyPrint(_ message: Any) {
         dump(message)
     }
     
-    func printDocumentsDirectory() {
+    public func printDocumentsDirectory() {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         print("Document Path: \(documentsPath)")
     }
