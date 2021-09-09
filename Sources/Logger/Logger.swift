@@ -3,8 +3,8 @@ import Foundation
 public class Logger {
     
     public static let shared = Logger()
-        
-        public init(){}
+    
+    public init(){}
     
     public func debugPrint(
         _ message: Any,
@@ -24,9 +24,9 @@ public class Logger {
         
         // if remoteLog is true record the log in server
         if remoteLog {
-            //            if let msg = message as? String {
-            //                logEvent(msg, event: .error, param: nil)
-            //            }
+            if let msg = message as? String {
+//                logEvent(msg, event: .error, param: nil)
+            }
         }
     }
     
