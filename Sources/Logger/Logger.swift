@@ -16,9 +16,19 @@ public class Logger {
     }
     
     /// pretty print
-    public func requestPrint(_ request: URLRequest) {
+    public func requestPrint(_ data: Data) {
         
-        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
+        
+        
+//        let data = request.data(using: .utf8) ?? Data()
+        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
+
+        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+        let jsonStringAgain = String(data: jsonDataAgain, encoding: .utf8) ?? ""
+        print(jsonStringAgain)
+        
+        
+//        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
     }
     
     public func dumpPrint(_ message: Any) {
