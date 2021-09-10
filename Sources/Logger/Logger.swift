@@ -16,9 +16,10 @@ public class Logger {
     }
     
     /// pretty print
-    public func prettyPrint(_ message: AnyCollection<Any>) {
-        debugPrint(message)
-        print("\(message.json())\n")
+    public func requestPrint(_ request: URLRequest) {
+        debugPrint(request)
+        
+        print("\nHTTP request: \(request.url)\nParams: \(request.httpBody?.json())\n")
     }
     
     public func dumpPrint(_ message: Any) {
