@@ -25,20 +25,36 @@ public class Logger {
         // if remoteLog is true record the log in server
         if remoteLog {
             if let msg = message as? String {
-//                logEvent(msg, event: .error, param: nil)
+                //                logEvent(msg, event: .error, param: nil)
             }
         }
     }
     
     /// pretty print
-    public func prettyPrint(_ message: Any) -> String {
-        var logText: String = "Not a JSON"
-        if let json = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted) {
-            if let jsonText = String(data: json, encoding: .utf8) {
-                logText = jsonText
+    public func prettyPrint(_ message: Any?) -> String {
+        if let jsonDict = message as? [String: Any] {
+            if let jsonData = try? JSONSerialization.data(
+                withJSONObject: jsonDict,
+                options: [.prettyPrinted]) {
+                if let jsonText = String(data: jsonData,
+                                         encoding: .utf8) {
+                    return jsonText
+                }
             }
         }
-        return logText
+        
+        if let jsonArray = message as? [[String: Any]] {
+            if let jsonData = try? JSONSerialization.data(
+                withJSONObject: jsonArray,
+                options: [.prettyPrinted]) {
+                if let jsonText = String(data: jsonData,
+                                         encoding: .utf8) {
+                    return jsonText
+                }
+            }
+        }
+        
+        return "Not a JSON"
     }
     
     public func dumpPrint(_ message: Any) {
