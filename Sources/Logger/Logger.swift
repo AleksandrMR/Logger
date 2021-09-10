@@ -14,7 +14,7 @@ public class Logger {
     // MARK: - Let
     public static let shared = Logger()
     
-    public init(){}
+    internal init(){}
     
     // MARK: - Var
     private static var dateFormat = "HH:mm:ss - MM/dd/yyyy"
@@ -56,27 +56,35 @@ public class Logger {
             if urlRequest.httpBody != nil {
                 body = urlRequest.httpBody ?? Data()
             }
-            print(" \(LogEvent.success.rawValue)\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ REQUEST ➖➖➖➖➖➖➖\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 💾 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
+            print(" ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ REQUEST ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 💾 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
         }
     }
     
-    public func responseSuccess(_ data: Data,
+    public func responseSuccess(_ data: Data?,
                                 extra1: String = #file,
                                 extra2: String = #function,
                                 extra3: Int = #line) {
         if Logger.isLoggingEnabled {
+            var responseData = Data()
             let filename = (extra1 as NSString).lastPathComponent
-            print(" \(LogEvent.success.rawValue)\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖\n \(dataToString(data))\n")
+            if data != nil {
+                responseData = data ?? Data()
+            }
+            print(" ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n \(dataToString(responseData))\n")
         }
     }
     
-    public func responseError(_ data: Data,
+    public func responseError(_ data: Data?,
                               extra1: String = #file,
                               extra2: String = #function,
                               extra3: Int = #line) {
         if Logger.isLoggingEnabled {
+            var responseData = Data()
             let filename = (extra1 as NSString).lastPathComponent
-            print(" \(LogEvent.error.rawValue)\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖\n \(dataToString(data))\n")
+            if data != nil {
+                responseData = data ?? Data()
+            }
+            print(" ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n \(dataToString(responseData))\n")
         }
     }
     
@@ -108,16 +116,16 @@ public class Logger {
     }
     
     internal func dataToString(_ data: Data) -> String {
-        //        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
-        //        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-        let jsonStringAgain = String(data: data, encoding: .ascii) ?? ""
+//        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
+//        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+        let jsonStringAgain = String(decoding: data, as: UTF8.self)
         return jsonStringAgain
     }
     
     internal func dictToString(_ dict: [String:Any]) -> String {
-        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-        let jsonStringAgain = String(data: jsonDataAgain, encoding: .ascii) ?? ""
-        return jsonStringAgain
+        let data = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+        let jsonString = String(data: data, encoding: .ascii) ?? ""
+        return jsonString
     }
 }
 
