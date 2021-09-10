@@ -56,7 +56,7 @@ public class Logger {
             if urlRequest.httpBody != nil {
                 body = urlRequest.httpBody ?? Data()
             }
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ \u{001B}[0;34REQUEST ❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
         }
     }
     
