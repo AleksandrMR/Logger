@@ -1,9 +1,9 @@
 import UIKit
 
 public enum LogEvent: String {
-    case error   = "🔴 ERROR 🔴"
-    case warning = "🟡 WARNING 🟡"
-    case success = "🟢 SUCCESS 🟢"
+    case error   = "🔴 ERROR"
+    case warning = "🟡 WARNING"
+    case success = "🟢 SUCCESS"
     
     case info  = "🔵 INFO"
     case debug = "🟣 DEBUG"
@@ -15,11 +15,14 @@ public class Logger {
     
     public init(){}
     
-    public func print(_ object: Any) {
-        // Only allowing in DEBUG mode
-        #if DEBUG
-        Swift.print(object)
-        #endif
+    
+    static var dateFormat = "MMMM yyyy - HH:mm:ss"
+    static var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormat
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        return formatter
     }
     
     public static var isLoggingEnabled: Bool {
@@ -30,13 +33,23 @@ public class Logger {
         #endif
     }
     
+    public func print(_ object: Any) {
+        // Only allowing in DEBUG mode
+        #if DEBUG
+        Swift.print(object)
+        #endif
+    }
+    
+    
+    
+    
     public func debugPrint(_ message: Any,
                            extra1: String = #file,
                            extra2: String = #function,
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            print(" \(LogEvent.success.rawValue)\n 📍FileName: \(filename)\n 📍Func: \(extra2)\n 📍Line: \(extra3)\n \(message)")
+            print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(message)")
         }
     }
     
@@ -76,5 +89,11 @@ public extension Collection {
             print("json serialization error: \(error)")
             return "{}"
         }
+    }
+}
+
+internal extension Date {
+    func toString() -> String {
+        return Logger.dateFormatter.string(from: self as Date)
     }
 }
