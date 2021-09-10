@@ -15,27 +15,43 @@ public class Logger {
     
     public init(){}
     
+    public func print(_ object: Any) {
+        // Only allowing in DEBUG mode
+        #if DEBUG
+        Swift.print(object)
+        #endif
+    }
+    
+    public static var isLoggingEnabled: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     public func debugPrint(_ message: Any,
                            extra1: String = #file,
                            extra2: String = #function,
                            extra3: Int = #line) {
-        
-        let filename = (extra1 as NSString).lastPathComponent
-        print(" \(LogEvent.success.rawValue)\n 📍FileName: [ \(filename) ]\n 📍Func: [ \(extra2) ]\n 📍Line: [ \(extra3) ]\n \(message)")
+        if Logger.isLoggingEnabled {
+            let filename = (extra1 as NSString).lastPathComponent
+            print(" \(LogEvent.success.rawValue)\n 📍FileName: \(filename)\n 📍Func: \(extra2)\n 📍Line: \(extra3)\n \(message)")
+        }
     }
     
     /// pretty print
     public func requestPrint(_ data: Data) {
         
-//        let data = request.data(using: .utf8) ?? Data()
+        //        let data = request.data(using: .utf8) ?? Data()
         let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
-
+        
         let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
         let jsonStringAgain = String(data: jsonDataAgain, encoding: .ascii) ?? ""
         print(jsonStringAgain)
         
         
-//        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
+        //        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
     }
     
     public func dumpPrint(_ message: Any) {
