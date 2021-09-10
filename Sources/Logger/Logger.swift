@@ -56,7 +56,7 @@ public class Logger {
             if urlRequest.httpBody != nil {
                 body = urlRequest.httpBody ?? Data()
             }
-            print(" ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ REQUEST ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 💾 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ REQUEST ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 💾 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
         }
     }
     
@@ -70,7 +70,7 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            print(" ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n \(dataToString(responseData))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n \(dataToString(responseData))\n")
         }
     }
     
@@ -84,7 +84,7 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            print(" ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n \(dataToString(responseData))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ RESPONSE ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n \(dataToString(responseData))\n")
         }
     }
     
@@ -94,7 +94,7 @@ public class Logger {
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            print(" \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)")
+            print("\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)")
         }
     }
     
@@ -104,7 +104,7 @@ public class Logger {
     
     public func printDocumentsDirectory() {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print(" 🗄 Document Path: \(documentsPath)")
+        print("\n 🗄 Document Path: \(documentsPath)")
     }
     
     // MARK: - Flow internal funcs
@@ -116,9 +116,9 @@ public class Logger {
     }
     
     internal func dataToString(_ data: Data) -> String {
-//        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
-//        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-        let jsonStringAgain = String(decoding: data, as: UTF8.self)
+        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
+        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+        let jsonStringAgain = String(decoding: jsonDataAgain, as: UTF8.self)
         return jsonStringAgain
     }
     
