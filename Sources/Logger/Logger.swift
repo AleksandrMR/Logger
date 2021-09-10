@@ -31,7 +31,17 @@ public class Logger {
     }
     
     /// pretty print
-    public func prettyPrint(_ message: Any) {
+    public func prettyPrint(_ message: Any) -> String {
+        var logText: String = "Not a JSON"
+        if let json = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted) {
+            if let jsonText = String(data: json, encoding: .utf8) {
+                logText = jsonText
+            }
+        }
+        return logText
+    }
+    
+    public func dumpPrint(_ message: Any) {
         dump(message)
     }
     
