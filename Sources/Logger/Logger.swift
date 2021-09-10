@@ -39,13 +39,13 @@ public class Logger {
         #endif
     }
     
-    public func debugPrint(_ message: Any,
+    public func responsePrint(_ message: Any,
                            extra1: String = #file,
                            extra2: String = #function,
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(message)")
+            print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 RESPONSE\n \(message)")
         }
     }
     
@@ -54,26 +54,33 @@ public class Logger {
                          extra2: String = #function,
                          extra3: Int = #line) {
         if Logger.isLoggingEnabled {
+            var body = Data()
             let filename = (extra1 as NSString).lastPathComponent
             let url = String(describing: urlRequest.debugDescription)
             let method = String(describing: urlRequest.httpMethod)
             let header = String(describing: urlRequest.allHTTPHeaderFields)
-            print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔔 REQUEST\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n")
+            let cachePolicy = String(describing: urlRequest.cachePolicy)
+            let timeInterval = String(describing: urlRequest.timeoutInterval)
+            if urlRequest.httpBody != nil {
+                body = urlRequest.httpBody ?? Data()
+            }
+            print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔔 REQUEST\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 💾 CachePolicy: \(cachePolicy)\n ⏰ TimeInterval: \(timeInterval)\n 🔋 BODY: \(requestPrint(body))\n")
         }
     }
     
     /// pretty print
-    public func requestPrint(_ data: Data) {
+    public func requestPrint(_ data: Data) -> String {
         
         //        let data = request.data(using: .utf8) ?? Data()
         let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
         
         let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
         let jsonStringAgain = String(data: jsonDataAgain, encoding: .ascii) ?? ""
-        print(jsonStringAgain)
+//        print(jsonStringAgain)
         
         
         //        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
+        return jsonStringAgain
     }
     
     public func dumpPrint(_ message: Any) {
