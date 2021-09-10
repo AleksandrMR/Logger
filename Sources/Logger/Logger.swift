@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 public enum LogEvent: String {
     case error   = "🔴"
@@ -21,7 +21,7 @@ public class Logger {
                            extra3: Int = #line) {
         
         let filename = (extra1 as NSString).lastPathComponent
-        print("\(LogEvent.success.rawValue)\n, FileName \(filename)\n Func \(extra2)\n Line \(extra3)/n, \(message)")
+        print("\n\(LogEvent.success.rawValue)\n [FileName]: \(filename)\n [Func]: \(extra2)\n [Line]: \(extra3)\n \(message)")
     }
     
     /// pretty print
@@ -31,7 +31,7 @@ public class Logger {
         let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
 
         let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-        let jsonStringAgain = String(data: jsonDataAgain, encoding: .utf8) ?? ""
+        let jsonStringAgain = String(data: jsonDataAgain, encoding: .ascii) ?? ""
         print(jsonStringAgain)
         
         
