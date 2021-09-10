@@ -1,9 +1,9 @@
 import UIKit
 
 public enum LogEvent: String {
-    case error   = "🔴 ERROR"
-    case warning = "🟡 WARNING"
-    case success = "🟢 SUCCESS"
+    case error   = "🔴 ERROR 🔴"
+    case warning = "🟡 WARNING 🟡"
+    case success = "🟢 SUCCESS 🟢"
     
     case info  = "🔵 INFO"
     case debug = "🟣 DEBUG"
@@ -21,7 +21,7 @@ public class Logger {
                            extra3: Int = #line) {
         
         let filename = (extra1 as NSString).lastPathComponent
-        print("\(LogEvent.success.rawValue)\n [❕FileName: \(filename) ]\n [❕Func: \(extra2) ]\n [❕Line: \(extra3) ]\n \(message)")
+        print(" \(LogEvent.success.rawValue)\n 📍FileName: [ \(filename) ]\n 📍Func: [ \(extra2) ]\n 📍Line: [ \(extra3) ]\n \(message)")
     }
     
     /// pretty print
