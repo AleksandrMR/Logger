@@ -109,7 +109,7 @@ public class Logger {
     
     // MARK: - Flow internal funcs
     func print(_ object: Any) {
-        // Only allowing in DEBUG mode
+        // print object only in DEBUG mode
         #if DEBUG
         Swift.print(object)
         #endif
@@ -119,7 +119,7 @@ public class Logger {
 //        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
 //        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
 //        let jsonStringAgain = String(decoding: jsonDataAgain, as: UTF8.self)
-        let jsonString = String(data: data, encoding: .ascii) ?? ""
+        let jsonString = String(decoding: data, as: UTF8.self)
         return jsonString
     }
     
