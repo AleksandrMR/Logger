@@ -15,7 +15,6 @@ public class Logger {
     
     public init(){}
     
-    
     static var dateFormat = "MMMM yyyy - HH:mm:ss"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -40,9 +39,6 @@ public class Logger {
         #endif
     }
     
-    
-    
-    
     public func debugPrint(_ message: Any,
                            extra1: String = #file,
                            extra2: String = #function,
@@ -50,6 +46,19 @@ public class Logger {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
             print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(message)")
+        }
+    }
+    
+    public func urlRequestPrint(_ urlRequest: URLRequest,
+                         extra1: String = #file,
+                         extra2: String = #function,
+                         extra3: Int = #line) {
+        if Logger.isLoggingEnabled {
+            let filename = (extra1 as NSString).lastPathComponent
+            let url = String(describing: urlRequest.debugDescription)
+            let method = String(describing: urlRequest.httpMethod)
+            let header = String(describing: urlRequest.allHTTPHeaderFields)
+            print(" \(LogEvent.success.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔔 REQUEST\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n")
         }
     }
     
