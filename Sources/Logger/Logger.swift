@@ -17,9 +17,8 @@ public class Logger {
     
     /// pretty print
     public func requestPrint(_ request: URLRequest) {
-        debugPrint(request)
         
-        print("\nHTTP request: \(request.url)\nParams: \(request.httpBody?.json())\n")
+        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
     }
     
     public func dumpPrint(_ message: Any) {
