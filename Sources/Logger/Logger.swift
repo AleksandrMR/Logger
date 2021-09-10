@@ -55,10 +55,15 @@ public class Logger {
                          extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             var body = Data()
+            var header = [String : String]()
             let filename = (extra1 as NSString).lastPathComponent
             let url = String(describing: urlRequest.debugDescription)
-            let method = String(describing: urlRequest.httpMethod)
-            let header = String(describing: urlRequest.allHTTPHeaderFields)
+            let method = urlRequest.httpMethod ?? ""
+            
+            if urlRequest.allHTTPHeaderFields != nil {
+                header = urlRequest.allHTTPHeaderFields ?? [String : String]()
+            }
+            
             let cachePolicy = String(describing: urlRequest.cachePolicy)
             let timeInterval = String(describing: urlRequest.timeoutInterval)
             if urlRequest.httpBody != nil {
@@ -80,6 +85,12 @@ public class Logger {
         
         
         //        print("\nHTTP request: \(request.url?.absoluteString ?? "")\nParams: \(request.httpBody?.json() ?? "")\n")
+        return jsonStringAgain
+    }
+    
+    func stringFromDict(_ dict: [String:Any]) -> String {
+        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+        let jsonStringAgain = String(data: jsonDataAgain, encoding: .ascii) ?? ""
         return jsonStringAgain
     }
     
