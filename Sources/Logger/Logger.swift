@@ -70,7 +70,7 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n \(dataToString(responseData))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n \n \(dataToString(responseData))\n")
         }
     }
     
@@ -84,7 +84,7 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n \(dataToString(responseData))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n \n \(dataToString(responseData))\n")
         }
     }
     
@@ -94,7 +94,7 @@ public class Logger {
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            print("\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)")
+            print("\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \n \(message)")
         }
     }
     
@@ -104,7 +104,7 @@ public class Logger {
     
     public func printDocumentsDirectory() {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n 🗄 Document Path: \(documentsPath)")
+        print("\n 🗄 Document Path:\n \(documentsPath)")
     }
     
     // MARK: - Flow internal funcs
@@ -116,10 +116,9 @@ public class Logger {
     }
     
     func dataToString(_ data: Data) -> String {
-//        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
-//        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-//        let jsonStringAgain = String(decoding: jsonDataAgain, as: UTF8.self)
-        let jsonString = String(decoding: data, as: UTF8.self)
+        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
+        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+        let jsonString = String(decoding: jsonDataAgain, as: UTF8.self)
         return jsonString
     }
     
