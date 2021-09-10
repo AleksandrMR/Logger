@@ -1,5 +1,14 @@
 import Foundation
 
+public enum LogEvent: String {
+    case error   = "🔴"
+    case warning = "🟡"
+    case success = "🟢"
+    
+    case info  = "🔵"
+    case debug = "🟣"
+}
+
 public class Logger {
     
     public static let shared = Logger()
@@ -12,13 +21,11 @@ public class Logger {
                            extra3: Int = #line) {
         
         let filename = (extra1 as NSString).lastPathComponent
-        print("[⚠️]", "[\(filename) \(extra3) line]", message)
+        print("\(LogEvent.success.rawValue)\n, FileName \(filename)\n Func \(extra2)\n Line \(extra3)/n, \(message)")
     }
     
     /// pretty print
     public func requestPrint(_ data: Data) {
-        
-        
         
 //        let data = request.data(using: .utf8) ?? Data()
         let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
