@@ -44,7 +44,7 @@ public class Logger {
             var header = [AnyHashable : Any]()
             
             let filename = (extra1 as NSString).lastPathComponent
-            let url = String(describing: urlRequest.debugDescription)
+            let url = urlRequest.url?.absoluteString ?? ""
             let method = urlRequest.httpMethod ?? ""
             let cachePolicy = String(describing: urlRequest.cachePolicy)
             let timeInterval = String(describing: urlRequest.timeoutInterval)
@@ -71,12 +71,11 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            let url = String(describing: response.debugDescription)
-            let url2 = response.url?.absoluteString ?? ""
+            let url = response.url?.absoluteString ?? ""
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n 🌐 URL2: \(url2)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🔋 BODY: \(dataToString(responseData))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🔋 BODY: \(dataToString(responseData))\n")
         }
     }
     
@@ -91,7 +90,7 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            let url = String(describing: response.debugDescription)
+            let url = response.url?.absoluteString ?? ""
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
@@ -105,7 +104,7 @@ public class Logger {
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            print("\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \n \(message)")
+            print("\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)")
         }
     }
     
