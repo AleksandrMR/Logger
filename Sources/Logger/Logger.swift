@@ -13,10 +13,12 @@ public class Logger {
     
     // MARK: - Let
     public static let shared = Logger()
+    let date = Date().toString()
     
     init(){}
     
     // MARK: - Var
+    var noValue = "None"
     static var dateFormat = "HH:mm:ss - MM/dd/yyyy"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -35,86 +37,73 @@ public class Logger {
     }
     
     // MARK: - Flow public funcs
-    public func urlRequestPrint(_ urlRequest: URLRequest,
+    public func printURLRequest(_ urlRequest: URLRequest,
                                 extra1: String = #file,
                                 extra2: String = #function,
                                 extra3: Int = #line) {
         if Logger.isLoggingEnabled {
-            var body = Data()
-            var header = [AnyHashable : Any]()
-            
             let filename = (extra1 as NSString).lastPathComponent
-            let url = urlRequest.url?.absoluteString ?? ""
-            let method = urlRequest.httpMethod ?? ""
+            let logEvent = LogEvent.success.rawValue
+            let url = urlRequest.url?.absoluteString ?? noValue
+            let method = urlRequest.httpMethod ?? noValue
             let cachePolicy = String(describing: urlRequest.cachePolicy)
             let timeInterval = String(describing: urlRequest.timeoutInterval)
-            
-            if urlRequest.allHTTPHeaderFields != nil {
-                header = urlRequest.allHTTPHeaderFields ?? [String : String]()
-            }
-            
-            if urlRequest.httpBody != nil {
-                body = urlRequest.httpBody ?? Data()
-            }
-            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(dataToString(body))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            let header = dictToString(urlRequest.allHTTPHeaderFields)
+            let body = dataToString(urlRequest.httpBody)
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(date)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
-    public func responseSuccess(_ data: Data?,
-                                _ response: HTTPURLResponse,
-                                extra1: String = #file,
-                                extra2: String = #function,
-                                extra3: Int = #line) {
+    public func printeURLResponseSuccess(_ response: HTTPURLResponse,
+                                         _ data: Data?,
+                                         extra1: String = #file,
+                                         extra2: String = #function,
+                                         extra3: Int = #line) {
         if Logger.isLoggingEnabled {
-            var responseData = Data()
             let filename = (extra1 as NSString).lastPathComponent
-            if data != nil {
-                responseData = data ?? Data()
-            }
-            let url = response.url?.absoluteString ?? ""
+            let logEvent = LogEvent.success.rawValue
+            let url = response.url?.absoluteString ?? noValue
             let statusCode = response.statusCode
-            let header = response.allHeaderFields
-            
-            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            let header = dictToString(response.allHeaderFields)
+            let body = dataToString(data)
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(date)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
-    public func responseError(_ data: Data?,
-                              _ response: HTTPURLResponse,
+    public func printeURLResponseError(_ response: HTTPURLResponse,
+                                       _ data: Data?,
+                                       extra1: String = #file,
+                                       extra2: String = #function,
+                                       extra3: Int = #line) {
+        if Logger.isLoggingEnabled {
+            let filename = (extra1 as NSString).lastPathComponent
+            let logEvent = LogEvent.error.rawValue
+            let url = response.url?.absoluteString ?? noValue
+            let statusCode = response.statusCode
+            let header = dictToString(response.allHeaderFields)
+            let body = dataToString(data)
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(date)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+        }
+    }
+    
+    public func printForDebug(_ message: Any,
                               extra1: String = #file,
                               extra2: String = #function,
                               extra3: Int = #line) {
         if Logger.isLoggingEnabled {
-            var responseData = Data()
             let filename = (extra1 as NSString).lastPathComponent
-            if data != nil {
-                responseData = data ?? Data()
-            }
-            let url = response.url?.absoluteString ?? ""
-            let statusCode = response.statusCode
-            let header = response.allHeaderFields
-            
-            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            let logEvent = LogEvent.warning.rawValue
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent) DEBUG\n ⏱ Time: \(date)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🛠 DEBUG_INFO:\n \(message)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
-    public func debugPrint(_ message: Any,
-                           extra1: String = #file,
-                           extra2: String = #function,
-                           extra3: Int = #line) {
-        if Logger.isLoggingEnabled {
-            let filename = (extra1 as NSString).lastPathComponent
-            print("\n\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
-        }
-    }
-    
-    public func dumpPrint(_ message: Any) {
+    public func printDumpMod(_ message: Any) {
         dump(message)
     }
     
-    public func printDocumentsDirectory() {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n\n 🗄 Document Path:\n \(documentsPath)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+    public func printDocumentDirectory() {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        print("\n\n 🗄 Document Path:\n \(documentPath)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
     }
     
     // MARK: - Flow internal funcs
@@ -125,17 +114,27 @@ public class Logger {
         #endif
     }
     
-    func dataToString(_ data: Data) -> String {
-        let dict = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) ?? [:]
-        let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-        let jsonString = String(decoding: jsonDataAgain, as: UTF8.self)
-        return jsonString
+    func dataToString(_ data: Data?) -> String {
+        if data != nil {
+            let myData = data ?? Data()
+            let dict = (try? JSONSerialization.jsonObject(with: myData, options: .allowFragments)) ?? [:]
+            let jsonDataAgain = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
+            let jsonString = String(decoding: jsonDataAgain, as: UTF8.self)
+            return jsonString
+        } else {
+            return noValue
+        }
     }
     
-    func dictToString(_ dict: [AnyHashable:Any]) -> String {
-        let data = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
-        let jsonString = String(data: data, encoding: .ascii) ?? ""
-        return jsonString
+    func dictToString(_ dict: [AnyHashable:Any]?) -> String {
+        if dict != nil {
+            let myDict = dict ?? [AnyHashable:Any]()
+            let data = (try? JSONSerialization.data(withJSONObject: myDict, options: .prettyPrinted)) ?? Data()
+            let jsonString = String(data: data, encoding: .ascii) ?? noValue
+            return jsonString
+        } else {
+            return noValue
+        }
     }
 }
 
