@@ -93,7 +93,7 @@ public class Logger {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
             let logEvent = LogEvent.warning.rawValue
-            print("\n\n ⏱ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent) DEBUG\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ DEBUG MESSAGE ❗️ ➖➖➖➖➖➖➖\n \(message)\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            print("\n\n ⏱ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent) DEBUG\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ DEBUG MESSAGE\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
