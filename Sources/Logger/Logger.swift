@@ -18,6 +18,7 @@ public class Logger {
     // MARK: - Let
     public static let shared = Logger()
     private let date = Date().toString()
+    private let separator = "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
     
     private init(){}
     
@@ -55,7 +56,7 @@ public class Logger {
             let timeInterval = urlRequest?.timeoutInterval ?? 0
             let header = dictToString(urlRequest?.allHTTPHeaderFields)
             let body = dataToString(urlRequest?.httpBody)
-            print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ⁉️ REQUEST\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ \(date)\n \(separator) ⁉️ REQUEST\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) \(myLogEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n \(separator) ‼️ END ‼️ \n\n")
         }
     }
     
@@ -72,7 +73,7 @@ public class Logger {
             let statusCode = response?.statusCode ?? 0
             let header = dictToString(response?.allHeaderFields)
             let body = dataToString(data)
-            print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ RESPONSE\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ \(date)\n \(separator) ‼️ RESPONSE\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) \(myLogEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n \(separator) ‼️ END ‼️ \n\n")
         }
     }
     
@@ -89,7 +90,7 @@ public class Logger {
             if myLogEvent == LogEvent.message.rawValue {
                 title = ""
             }
-            print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent) \(title)\n\n \(message)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ \(date)\n \(separator) \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) \(myLogEvent) \(title)\n\n \(message)\n\n \(separator) ‼️ END ‼️ \n\n")
         }
     }
     
@@ -111,7 +112,7 @@ public class Logger {
             
             if let imageSize = imageData?.count {
                 let message = "actual size of image in KB: \(Double(imageSize) / 1000.0)"
-                print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+                print("\n\n ⏰ \(date)\n \(separator) \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) ✉️ MESSAGE\n \(message)\n \(separator) ‼️ END ‼️ \n\n")
             }
         }
     }
@@ -126,7 +127,7 @@ public class Logger {
         let eventType = LogType.info.rawValue
         let filename = (extra1 as NSString).lastPathComponent
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🌍 DOCUMENT PATH\n \(documentPath)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+        print("\n\n \(separator) \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) 🌍 DOCUMENT PATH\n \(documentPath)\n \(separator) ‼️ END ‼️ \n\n")
     }
     
     // MARK: - Flow internal funcs
