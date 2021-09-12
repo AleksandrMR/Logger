@@ -1,6 +1,11 @@
 
 import UIKit
 
+enum LogType: String {
+    case info    = "💡 INFO"
+    case debug   = "⚙️ DEBUG"
+}
+
 public enum LogEvent: String {
     case error   = "🔴 ERROR"
     case warning = "🟡 WARNING"
@@ -8,21 +13,16 @@ public enum LogEvent: String {
     case message = "✉️ MESSAGE"
 }
 
-enum EventType: String {
-    case info    = "💡 INFO"
-    case debug   = "⚙️ DEBUG"
-}
-
 public class Logger {
     
     // MARK: - Let
     public static let shared = Logger()
-    let date = Date().toString()
+    private let date = Date().toString()
     
-    init(){}
+    private init(){}
     
     // MARK: - Var
-    var noValue = "None"
+    private var noValue = "None"
     static var dateFormat = "HH:mm:ss - MM/dd/yyyy"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -55,7 +55,7 @@ public class Logger {
             let timeInterval = urlRequest?.timeoutInterval ?? 0
             let header = dictToString(urlRequest?.allHTTPHeaderFields)
             let body = dataToString(urlRequest?.httpBody)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ⁉️ REQUEST\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -72,7 +72,7 @@ public class Logger {
             let statusCode = response?.statusCode ?? 0
             let header = dictToString(response?.allHeaderFields)
             let body = dataToString(data)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ RESPONSE\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -83,13 +83,13 @@ public class Logger {
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            let eventType = EventType.debug.rawValue
+            let eventType = LogType.debug.rawValue
             let myLogEvent = logEvent.rawValue
             var title = "MESSAGE"
             if myLogEvent == LogEvent.message.rawValue {
                 title = ""
             }
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent) \(title)\n\n \(message)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent) \(title)\n\n \(message)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -101,7 +101,7 @@ public class Logger {
         if Logger.isLoggingEnabled {
             var imageData: Data?
             let filename = (extra1 as NSString).lastPathComponent
-            let eventType = EventType.info.rawValue
+            let eventType = LogType.info.rawValue
             
             if image != nil {
                 imageData = image?.jpegData(compressionQuality: 1.0)
@@ -111,7 +111,7 @@ public class Logger {
             
             if let imageSize = imageData?.count {
                 let message = "actual size of image in KB: \(Double(imageSize) / 1000.0)"
-                print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+                print("\n\n ⏰ \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
             }
         }
     }
@@ -123,7 +123,7 @@ public class Logger {
     public func printDocumentDirectory(extra1: String = #file,
                                        extra2: String = #function,
                                        extra3: Int = #line) {
-        let eventType = EventType.info.rawValue
+        let eventType = LogType.info.rawValue
         let filename = (extra1 as NSString).lastPathComponent
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🌍 DOCUMENT PATH\n \(documentPath)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
