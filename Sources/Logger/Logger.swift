@@ -71,11 +71,12 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            let url = response.debugDescription
+            let url = String(describing: response.debugDescription)
+            let url2 = response.url?.absoluteString ?? ""
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🔋 BODY: \(dataToString(responseData))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n 🌐 URL2: \(url2)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🔋 BODY: \(dataToString(responseData))\n")
         }
     }
     
@@ -90,7 +91,7 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            let url = response.debugDescription
+            let url = String(describing: response.debugDescription)
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
