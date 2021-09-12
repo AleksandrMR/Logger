@@ -42,6 +42,15 @@ public class Logger {
     }
     
     // MARK: - Flow public funcs
+    /// Summary
+    /// Some func
+    /// Description
+    /// - Parameters:
+    ///   - urlRequest: urlRequest description
+    ///   - logEvent: logEvent description
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
     public func printURLRequest(_ urlRequest: URLRequest?,
                                 logEvent: LogEvent,
                                 extra1: String = #file,
