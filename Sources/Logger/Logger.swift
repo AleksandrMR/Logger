@@ -50,7 +50,7 @@ public class Logger {
             let timeInterval = urlRequest?.timeoutInterval ?? 0
             let header = dictToString(urlRequest?.allHTTPHeaderFields)
             let body = dataToString(urlRequest?.httpBody)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ ➖\n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -66,7 +66,7 @@ public class Logger {
             let statusCode = response?.statusCode ?? 0
             let header = dictToString(response?.allHeaderFields)
             let body = dataToString(data)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ ➖\n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -82,7 +82,7 @@ public class Logger {
             let statusCode = response?.statusCode ?? 0
             let header = dictToString(response?.allHeaderFields)
             let body = dataToString(data)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ ➖\n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -93,7 +93,7 @@ public class Logger {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
             let logEvent = LogEvent.debug.rawValue
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ ➖\n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
@@ -107,7 +107,7 @@ public class Logger {
         let logEvent = LogEvent.info.rawValue
         let filename = (extra1 as NSString).lastPathComponent
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🌍 DOCUMENT PATH\n \(documentPath)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ ➖\n\n")
+        print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🌍 DOCUMENT PATH\n \(documentPath)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
     }
     
     // MARK: - Flow internal funcs
