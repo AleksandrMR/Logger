@@ -5,11 +5,12 @@ public enum LogEvent: String {
     case error   = "🔴 ERROR"
     case warning = "🟡 WARNING"
     case success = "🟢 SUCCESS"
+    case message = "✉️ MESSAGE"
 }
 
 enum EventType: String {
-    case info    = "🔵 INFO"
-    case debug   = "🟣 DEBUG"
+    case info    = "💡 INFO"
+    case debug   = "⚙️ DEBUG"
 }
 
 public class Logger {
@@ -41,37 +42,22 @@ public class Logger {
     
     // MARK: - Flow public funcs
     public func printURLRequest(_ urlRequest: URLRequest?,
+                                logEvent: LogEvent,
                                 extra1: String = #file,
                                 extra2: String = #function,
                                 extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            let logEvent = LogEvent.success.rawValue
+            let myLogEvent = logEvent.rawValue
             let url = urlRequest?.url?.absoluteString ?? noValue
             let method = urlRequest?.httpMethod ?? noValue
             let cachePolicy = urlRequest?.cachePolicy.hashValue ?? 0
             let timeInterval = urlRequest?.timeoutInterval ?? 0
             let header = dictToString(urlRequest?.allHTTPHeaderFields)
             let body = dataToString(urlRequest?.httpBody)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
-    
-//    public func printeURLResponseS(_ response: HTTPURLResponse?,
-//                                   _ data: Data?,
-//                                   extra1: String = #file,
-//                                   extra2: String = #function,
-//                                   extra3: Int = #line) {
-//        if Logger.isLoggingEnabled {
-//            let filename = (extra1 as NSString).lastPathComponent
-//            let logEvent = LogEvent.success.rawValue
-//            let url = response?.url?.absoluteString ?? noValue
-//            let statusCode = response?.statusCode ?? 0
-//            let header = dictToString(response?.allHeaderFields)
-//            let body = dataToString(data)
-//            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
-//        }
-//    }
     
     public func printeURLResponse(_ response: HTTPURLResponse?,
                                   _ data: Data?,
@@ -99,7 +85,11 @@ public class Logger {
             let filename = (extra1 as NSString).lastPathComponent
             let eventType = EventType.debug.rawValue
             let myLogEvent = logEvent.rawValue
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent) MESSAGE\n \(message)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            var title = "MESSAGE"
+            if myLogEvent == LogEvent.message.rawValue {
+                title = ""
+            }
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent) \(title)\n\n \(message)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
