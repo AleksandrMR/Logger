@@ -56,7 +56,7 @@ public class Logger {
             if urlRequest.httpBody != nil {
                 body = urlRequest.httpBody ?? Data()
             }
-            print(" ➖➖➖➖➖➖➖ 🧭 LOCATION ❗️ ➖➖➖➖➖➖➖\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(dataToString(body))\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n")
+            print("\n\n ➖➖➖➖➖➖➖ ❗️ LOCATION ❗️ ➖➖➖➖➖➖➖ 🧭\n\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(dataToString(body))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
@@ -75,7 +75,7 @@ public class Logger {
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
-            print(" ➖➖➖➖➖➖➖ 🧭 LOCATION ❗️ ➖➖➖➖➖➖➖\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🔋 BODY: \(dataToString(responseData))\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n")
+            print("\n\n ➖➖➖➖➖➖➖ 🧭 LOCATION ❗️ ➖➖➖➖➖➖➖ 🧭\n\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
@@ -94,7 +94,7 @@ public class Logger {
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
-            print(" ➖➖➖➖➖➖➖ 🧭 LOCATION ❗️ ➖➖➖➖➖➖➖\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🔋 BODY: \(dataToString(responseData))\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n")
+            print("\n\n ➖➖➖➖➖➖➖ ❗️ LOCATION ❗️ ➖➖➖➖➖➖➖ 🧭\n\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
@@ -104,7 +104,7 @@ public class Logger {
                            extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            print("\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n")
+            print("\n\n \(LogEvent.warning.rawValue)\n ⏱ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n 🔊 DEBUG_INFO:\n \(message)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
@@ -114,7 +114,7 @@ public class Logger {
     
     public func printDocumentsDirectory() {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n 🗄 Document Path:\n \(documentsPath)\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n")
+        print("\n\n 🗄 Document Path:\n \(documentsPath)\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
     }
     
     // MARK: - Flow internal funcs
