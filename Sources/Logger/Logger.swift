@@ -56,7 +56,7 @@ public class Logger {
             if urlRequest.httpBody != nil {
                 body = urlRequest.httpBody ?? Data()
             }
-            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(dataToString(body))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(dataToString(body))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
@@ -75,7 +75,7 @@ public class Logger {
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
-            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
@@ -94,7 +94,7 @@ public class Logger {
             let statusCode = response.statusCode
             let header = response.allHeaderFields
             
-            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n 🛢 BODY: \(dataToString(responseData))\n\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
         }
     }
     
