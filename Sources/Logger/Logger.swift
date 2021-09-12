@@ -41,7 +41,7 @@ public class Logger {
                                 extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             var body = Data()
-            var header = [String : String]()
+            var header = [AnyHashable : Any]()
             
             let filename = (extra1 as NSString).lastPathComponent
             let url = String(describing: urlRequest.debugDescription)
@@ -56,11 +56,12 @@ public class Logger {
             if urlRequest.httpBody != nil {
                 body = urlRequest.httpBody ?? Data()
             }
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ \u{001B}[0;34REQUEST ❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST❓ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(dictToString(header))\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🔋 BODY: \(dataToString(body))\n")
         }
     }
     
     public func responseSuccess(_ data: Data?,
+                                _ response: HTTPURLResponse,
                                 extra1: String = #file,
                                 extra2: String = #function,
                                 extra3: Int = #line) {
@@ -70,11 +71,16 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n \n \(dataToString(responseData))\n")
+            let url = String(describing: response.url)
+            let statusCode = response.statusCode
+            let header = response.allHeaderFields
+            
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.success.rawValue)\n 🌐 URL: \(url)\n STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n \(dataToString(responseData))\n")
         }
     }
     
     public func responseError(_ data: Data?,
+                              _ response: HTTPURLResponse,
                               extra1: String = #file,
                               extra2: String = #function,
                               extra3: Int = #line) {
@@ -84,7 +90,11 @@ public class Logger {
             if data != nil {
                 responseData = data ?? Data()
             }
-            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n \n \(dataToString(responseData))\n")
+            let url = String(describing: response.url)
+            let statusCode = response.statusCode
+            let header = response.allHeaderFields
+            
+            print("\n ⏰ Time: \(Date().toString())\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(LogEvent.error.rawValue)\n 🌐 URL: \(url)\n STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(dictToString(header))\n \(dataToString(responseData))\n")
         }
     }
     
@@ -122,7 +132,7 @@ public class Logger {
         return jsonString
     }
     
-    func dictToString(_ dict: [String:Any]) -> String {
+    func dictToString(_ dict: [AnyHashable:Any]) -> String {
         let data = (try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)) ?? Data()
         let jsonString = String(data: data, encoding: .ascii) ?? ""
         return jsonString
