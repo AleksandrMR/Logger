@@ -6,6 +6,7 @@ enum LogType: String {
     case debug   = "⚙️ DEBUG"
 }
 
+/// Description for LogEvent
 public enum LogEvent: String {
     case error   = "🔴 ERROR"
     case warning = "🟡 WARNING"
@@ -13,6 +14,7 @@ public enum LogEvent: String {
     case message = "✉️ MESSAGE"
 }
 
+/// Description for Logger
 public class Logger {
     
     // MARK: - Let
@@ -42,9 +44,8 @@ public class Logger {
     }
     
     // MARK: - Flow public funcs
-    /// Summary
-    /// Some func
-    /// Description
+
+    /// Description for printURLRequest
     /// - Parameters:
     ///   - urlRequest: urlRequest description
     ///   - logEvent: logEvent description
@@ -69,6 +70,14 @@ public class Logger {
         }
     }
     
+    /// Description for printeURLResponse
+    /// - Parameters:
+    ///   - response: response description
+    ///   - data: data description
+    ///   - logEvent: logEvent description
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
     public func printeURLResponse(_ response: HTTPURLResponse?,
                                   _ data: Data?,
                                   logEvent: LogEvent,
@@ -86,6 +95,13 @@ public class Logger {
         }
     }
     
+    /// Description for printDebug
+    /// - Parameters:
+    ///   - message: message description
+    ///   - logEvent: logEvent description
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
     public func printDebug(_ message: Any,
                            logEvent: LogEvent,
                            extra1: String = #file,
@@ -103,6 +119,13 @@ public class Logger {
         }
     }
     
+    /// Description for printImageBytes
+    /// - Parameters:
+    ///   - image: image description
+    ///   - data: data description
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
     public func printImageBytes(image: UIImage?,
                                 data: Data?,
                                 extra1: String = #file,
@@ -126,10 +149,17 @@ public class Logger {
         }
     }
     
+    /// Description for printDumpMod
+    /// - Parameter message: message description
     public func printDumpMod(_ message: Any) {
         dump(message)
     }
     
+    /// Description for printDocumentDirectory
+    /// - Parameters:
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
     public func printDocumentDirectory(extra1: String = #file,
                                        extra2: String = #function,
                                        extra3: Int = #line) {
