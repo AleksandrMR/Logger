@@ -1,10 +1,13 @@
 
 import UIKit
 
-enum LogEvent: String {
+public enum LogEvent: String {
     case error   = "🔴 ERROR"
     case warning = "🟡 WARNING"
     case success = "🟢 SUCCESS"
+}
+
+enum EventType: String {
     case info    = "🔵 INFO"
     case debug   = "🟣 DEBUG"
 }
@@ -54,46 +57,72 @@ public class Logger {
         }
     }
     
-    public func printeURLResponseSuccess(_ response: HTTPURLResponse?,
-                                         _ data: Data?,
-                                         extra1: String = #file,
-                                         extra2: String = #function,
-                                         extra3: Int = #line) {
-        if Logger.isLoggingEnabled {
-            let filename = (extra1 as NSString).lastPathComponent
-            let logEvent = LogEvent.success.rawValue
-            let url = response?.url?.absoluteString ?? noValue
-            let statusCode = response?.statusCode ?? 0
-            let header = dictToString(response?.allHeaderFields)
-            let body = dataToString(data)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
-        }
-    }
+//    public func printeURLResponseS(_ response: HTTPURLResponse?,
+//                                   _ data: Data?,
+//                                   extra1: String = #file,
+//                                   extra2: String = #function,
+//                                   extra3: Int = #line) {
+//        if Logger.isLoggingEnabled {
+//            let filename = (extra1 as NSString).lastPathComponent
+//            let logEvent = LogEvent.success.rawValue
+//            let url = response?.url?.absoluteString ?? noValue
+//            let statusCode = response?.statusCode ?? 0
+//            let header = dictToString(response?.allHeaderFields)
+//            let body = dataToString(data)
+//            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+//        }
+//    }
     
-    public func printeURLResponseError(_ response: HTTPURLResponse?,
-                                       _ data: Data?,
-                                       extra1: String = #file,
-                                       extra2: String = #function,
-                                       extra3: Int = #line) {
+    public func printeURLResponse(_ response: HTTPURLResponse?,
+                                  _ data: Data?,
+                                  logEvent: LogEvent,
+                                  extra1: String = #file,
+                                  extra2: String = #function,
+                                  extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            let logEvent = LogEvent.error.rawValue
+            let myLogEvent = logEvent.rawValue
             let url = response?.url?.absoluteString ?? noValue
             let statusCode = response?.statusCode ?? 0
             let header = dictToString(response?.allHeaderFields)
             let body = dataToString(data)
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ RESPONSE ❗️ ➖➖➖➖➖➖➖ \(myLogEvent)\n 🌐 URL: \(url)\n ⚠️ STATUS_CODE: \(statusCode)\n 🔒 HEADER: \(header)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
         }
     }
     
     public func printDebug(_ message: Any,
-                              extra1: String = #file,
-                              extra2: String = #function,
-                              extra3: Int = #line) {
+                           logEvent: LogEvent,
+                           extra1: String = #file,
+                           extra2: String = #function,
+                           extra3: Int = #line) {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
-            let logEvent = LogEvent.debug.rawValue
-            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            let eventType = EventType.debug.rawValue
+            let myLogEvent = logEvent.rawValue
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(myLogEvent) MESSAGE\n \(message)\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+        }
+    }
+    
+    public func printImageBytes(image: UIImage?,
+                                data: Data?,
+                                extra1: String = #file,
+                                extra2: String = #function,
+                                extra3: Int = #line) {
+        if Logger.isLoggingEnabled {
+            var imageData: Data?
+            let filename = (extra1 as NSString).lastPathComponent
+            let eventType = EventType.info.rawValue
+            
+            if image != nil {
+                imageData = image?.jpegData(compressionQuality: 1.0)
+            } else if data != nil {
+                imageData = data
+            }
+            
+            if let imageSize = imageData?.count {
+                let message = "actual size of image in KB: \(Double(imageSize) / 1000.0)"
+                print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+            }
         }
     }
     
@@ -104,10 +133,10 @@ public class Logger {
     public func printDocumentDirectory(extra1: String = #file,
                                        extra2: String = #function,
                                        extra3: Int = #line) {
-        let logEvent = LogEvent.info.rawValue
+        let eventType = EventType.info.rawValue
         let filename = (extra1 as NSString).lastPathComponent
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🌍 DOCUMENT PATH\n \(documentPath)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
+        print("\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🌍 DOCUMENT PATH\n \(documentPath)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END ‼️ \n\n")
     }
     
     // MARK: - Flow internal funcs
