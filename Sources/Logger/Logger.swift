@@ -46,8 +46,8 @@ public class Logger {
             let logEvent = LogEvent.success.rawValue
             let url = urlRequest?.url?.absoluteString ?? noValue
             let method = urlRequest?.httpMethod ?? noValue
-            let cachePolicy = String(describing: urlRequest?.cachePolicy)
-            let timeInterval = String(describing: urlRequest?.timeoutInterval)
+            let cachePolicy = urlRequest?.cachePolicy.hashValue ?? 0
+            let timeInterval = urlRequest?.timeoutInterval ?? 0
             let header = dictToString(urlRequest?.allHTTPHeaderFields)
             let body = dataToString(urlRequest?.httpBody)
             print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ 🧭 LOCATION\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖ ❗️ REQUEST ❓ ➖➖➖➖➖➖➖ \(logEvent)\n 🌐 URL: \(url)\n Ⓜ️ METHOD: \(method)\n 🔒 HEADER: \(header)\n 📀 CachePolicy: \(cachePolicy)\n ⏱ TimeInterval: \(timeInterval)\n 🛢 BODY: \(body)\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
@@ -93,7 +93,7 @@ public class Logger {
         if Logger.isLoggingEnabled {
             let filename = (extra1 as NSString).lastPathComponent
             let logEvent = LogEvent.debug.rawValue
-            print("\n\n ⏱ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖ ‼️ END ‼️ ➖➖➖➖➖➖➖\n\n")
+            print("\n\n ⏰ Time: \(date)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ \(logEvent)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ✉️ MESSAGE\n \(message)\n ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖ ‼️ END\n\n")
         }
     }
     
