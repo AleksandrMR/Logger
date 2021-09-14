@@ -80,8 +80,6 @@ public class Logger {
             var body = ""
             if data != nil {
                 body = data?.getLogInfo() ?? ""
-            } else {
-                body = Logger.noValue
             }
             print("\(date) \(separator) \(myLogType) \(fileLocation)\n \(separator) \(myLogEvent) \(obj.getLogInfo())\(body)\n \(separator) \(end)")
         }
