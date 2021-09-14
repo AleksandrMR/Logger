@@ -31,7 +31,7 @@ extension HTTPURLResponse: Loggable {
 extension Data: Loggable {
     public func getLogInfo() -> String {
         let body = Logger.dataToString(self)
-        return body
+        return "\(Logger.body) \(body)"
     }
 }
 
