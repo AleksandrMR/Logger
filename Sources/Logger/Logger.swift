@@ -66,9 +66,9 @@ public class Logger {
     
     // MARK: - Flow public funcs
     public func printLog(_ obj: Loggable,
-                         _ data: Loggable? = nil,
-                         _ logType: LogType,
-                         _ logEvent: LogEvent,
+                         data: Loggable? = nil,
+                         logType: LogType,
+                         logEvent: LogEvent,
                          extra1: String = #file,
                          extra2: String = #function,
                          extra3: Int = #line) {
