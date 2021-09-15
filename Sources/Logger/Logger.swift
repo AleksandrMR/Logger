@@ -65,7 +65,7 @@ public class Logger {
     }
     
     // MARK: - Flow public funcs
-    public func printLog(_ obj: Loggable...,
+    public func printLog(_ obj: Loggable?...,
                          logType: LogType,
                          _ logEvent: LogEvent,
                          extra1: String = #file,
@@ -76,10 +76,9 @@ public class Logger {
             let myLogType = logType.rawValue
             let myLogEvent = logEvent.rawValue
             let fileLocation = "\(fileName) \(filename) \(logFunc) \(extra2) \(logLine) \(extra3)"
-            
             var text = ""
             for value in obj {
-                text += value.getLogInfo() + " "
+                text += value?.getLogInfo() ?? "" + " "
             }
             print("\(date) \(separator) \(myLogType) \(fileLocation)\n \(separator) \(myLogEvent) \(text)\n \(separator) \(end)")
         }
