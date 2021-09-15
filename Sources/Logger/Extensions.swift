@@ -37,7 +37,7 @@ extension Data: Loggable {
 
 extension String: Loggable {
     public func getLogInfo() -> String {
-        return "\n \(self)"
+        return "\n\n \(self)\n"
     }
 }
 // MARK: - Internal Extension for Date
