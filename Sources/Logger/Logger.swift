@@ -37,17 +37,19 @@ public class Logger {
     static let statusCode   = "\n ⚠️ STATUS_CODE:"
     static let body         = "\n 🛢 BODY:"
     static let noValue      = "🚫 None"
+    static let dateFormat   = "HH:mm:ss - MM/dd/yyyy"
     private let date        = "\n\n ⏰ \(Date().toString())\n"
-    private let fileName    = "\n📍 FileName:"
-    private let logFunc     = "\n📍 Func:"
-    private let logLine     = "\n📍 Line:"
+    private let stringDesc  = "actual size of image in KB:"
+    private let fileName    = "\n 📍 FileName:"
+    private let logFunc     = "\n 📍 Func:"
+    private let logLine     = "\n 📍 Line:"
     private let end         = "‼️ END ‼️ \n\n"
+    private let docPath     = "🌍 DOCUMENT PATH\n"
     private let separator   = "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
     
     init(){}
     
     // MARK: - Var
-    static var dateFormat = "HH:mm:ss - MM/dd/yyyy"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat
@@ -65,6 +67,15 @@ public class Logger {
     }
     
     // MARK: - Flow public funcs
+    
+    /// Description for printLog
+    /// - Parameters:
+    ///   - obj: obj description
+    ///   - logType: logType description
+    ///   - logEvent: logEvent description
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
     public func printLog(_ obj: Loggable?...,
                          logType: LogType,
                          _ logEvent: LogEvent,
@@ -100,25 +111,36 @@ public class Logger {
             var imageData: Data?
             let filename = (extra1 as NSString).lastPathComponent
             let eventType = LogType.info.rawValue
-            
+            let fileLocation = "\(fileName) \(filename) \(logFunc) \(extra2) \(logLine) \(extra3)"
             if image != nil {
                 imageData = image?.jpegData(compressionQuality: 1.0)
             } else if data != nil {
                 imageData = data
             }
-            
             if let imageSize = imageData?.count {
-                let message = "actual size of image in KB: \(Double(imageSize) / 1000.0)"
-                print("\n\n ⏰ \(date)\n \(separator) \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) ✉️ MESSAGE\n \(message)\n \(separator) ‼️ END ‼️ \n\n")
-                
+                let message = "\(stringDesc) \(Double(imageSize) / 1000.0)"
+                print("\(date) \(separator) \(eventType) \(fileLocation)\n \(separator) \(message)\n \(separator) \(end)")
             }
         }
     }
     
+    
     /// Description for printDumpMod
-    /// - Parameter message: message description
-    public func printDumpMod(_ message: Any) {
-        dump(message)
+    /// - Parameters:
+    ///   - message: message description
+    ///   - extra1: extra1 description
+    ///   - extra2: extra2 description
+    ///   - extra3: extra3 description
+    public func printDumpMod(_ message: Any,
+                             extra1: String = #file,
+                             extra2: String = #function,
+                             extra3: Int = #line) {
+        if Logger.isLoggingEnabled {
+            let filename = (extra1 as NSString).lastPathComponent
+            let eventType = LogType.info.rawValue
+            let fileLocation = "\(fileName) \(filename) \(logFunc) \(extra2) \(logLine) \(extra3)"
+            dump("\(date) \(separator) \(eventType) \(fileLocation)\n \(separator) \(message)\n \(separator) \(end)")
+        }
     }
     
     /// Description for printDocumentDirectory
@@ -129,13 +151,15 @@ public class Logger {
     public func printDocumentDirectory(extra1: String = #file,
                                        extra2: String = #function,
                                        extra3: Int = #line) {
-        let eventType = LogType.info.rawValue
         let filename = (extra1 as NSString).lastPathComponent
+        let eventType = LogType.info.rawValue
+        let fileLocation = "\(fileName) \(filename) \(logFunc) \(extra2) \(logLine) \(extra3)"
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        print("\n\n \(separator) \(eventType)\n 📍 FileName: \(filename)\n 📍 Func: \(extra2)\n 📍 Line: \(extra3)\n \(separator) 🌍 DOCUMENT PATH\n \(documentPath)\n \(separator) ‼️ END ‼️ \n\n")
+        print("\n\n \(separator) \(eventType)\n \(fileLocation)\n \(separator) \(docPath) \(documentPath)\n \(separator) \(end)")
     }
     
     // MARK: - Flow internal funcs
+    
     private func print(_ object: Any) {
         // print object only in DEBUG mode
         #if DEBUG

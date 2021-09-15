@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Extension for URLRequest
+
 extension URLRequest: Loggable {
     public func getLogInfo() -> String {
         let url = self.url?.absoluteString ?? Logger.noValue
@@ -19,6 +21,8 @@ extension URLRequest: Loggable {
     }
 }
 
+// MARK: - Extension for HTTPURLResponse
+
 extension HTTPURLResponse: Loggable {
     public func getLogInfo() -> String {
         let url = self.url?.absoluteString ?? Logger.noValue
@@ -28,6 +32,8 @@ extension HTTPURLResponse: Loggable {
     }
 }
 
+// MARK: - Extension for Data
+
 extension Data: Loggable {
     public func getLogInfo() -> String {
         let body = Logger.dataToString(self)
@@ -35,12 +41,15 @@ extension Data: Loggable {
     }
 }
 
+// MARK: - Extension for String
+
 extension String: Loggable {
     public func getLogInfo() -> String {
         return "\n\n \(self)\n"
     }
 }
 // MARK: - Internal Extension for Date
+
 extension Date {
     func toString() -> String {
         return Logger.dateFormatter.string(from: self as Date)
@@ -48,6 +57,7 @@ extension Date {
 }
 
 // MARK: - Internal Extension for Collection
+
 extension Collection {
     
     /// Convert self to JSON String.
